@@ -18,7 +18,7 @@ type DesignStore = {
   removeComponent: (id: string) => void;
   setSelected: (id: string | null) => void;
   updateProps: (id: string, newProps: Record<string, any>) => void;
-
+  reorderComponent: (dragId: string, hoverId: string) => void;
   saveDesign: () => void;
 };
 
@@ -70,7 +70,24 @@ export const useDesignStore = create<DesignStore>((set) => ({
         c.id === id ? { ...c, props: { ...c.props, ...newProps } } : c
       ),
     })),
+  // -------------------------
+  // Reorder Component (Hành động Sắp xếp lại)
+  // -------------------------
+  reorderComponent: (dragId, hoverId) =>
+    set((state) => {
+      // Logic sắp xếp lại mảng (move item)
+      const components = [...state.components];
+      const dragIndex = components.findIndex(c => c.id === dragId);
+      const hoverIndex = components.findIndex(c => c.id === hoverId);
 
+      if (dragIndex === -1 || hoverIndex === -1) return state;
+
+      // Di chuyển phần tử
+      const [draggedItem] = components.splice(dragIndex, 1);
+      components.splice(hoverIndex, 0, draggedItem);
+
+      return { components };
+    }),
   // -------------------------
   // Save Design
   // -------------------------

@@ -173,7 +173,7 @@ const PropertyPanel: React.FC = () => {
   return (
     <div className="p-4 border-l border-gray-300 w-80 bg-gray-50 overflow-y-auto h-full">
       <h3 className="font-bold mb-4 text-lg text-gray-800 border-b pb-2">
-        🛠️ Thuộc tính ({componentType.toUpperCase()})
+        🛠️ Property ({componentType.toUpperCase()})
       </h3>
 
       {/* 1. Render Thuộc tính Chung (Name, Xpath) */}
