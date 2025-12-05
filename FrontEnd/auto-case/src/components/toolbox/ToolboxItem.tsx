@@ -1,30 +1,3 @@
-// import type { FC } from "react";
-// import { useDrag } from "react-dnd";
-// interface ToolboxItemProps {
-//   type: string;
-//   label: string;
-// }
-
-// export const ToolboxItem: FC<ToolboxItemProps> = ({ type, label }) => {
-//   const [{ isDragging }, drag] = useDrag(() => ({
-//     type: "toolbox-item",
-//     item: { type },
-//     collect: (monitor) => ({
-//       isDragging: monitor.isDragging(),
-//     }),
-//   }));
-
-//   return drag(
-//     <div
-//       className="p-2 cursor-pointer bg-gray-200 rounded mb-2"
-//       style={{ opacity: isDragging ? 0.4 : 1 }}
-//     >
-//       {label}
-//     </div>
-//   );
-// };
-
-
 import { icons } from "lucide-react";
 import type { FC } from "react";
 import { useDrag } from "react-dnd";

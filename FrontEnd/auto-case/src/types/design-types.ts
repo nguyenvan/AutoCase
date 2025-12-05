@@ -1,58 +1,53 @@
-// // src/types/design-types.ts
-// export type BaseComponentProps = {
-//   name?: string;            // Control name on UI
-//   xpath?: string;           // Xpath or locator
-//   valueField?: string;      // For data-driven mapping
-//   isRequired?: boolean;
-//   isDisable?: boolean;
-//   isVisible?: boolean;
-//   errorMessage?: string;
-// };
-
-// export type InputProps = BaseComponentProps & {
-//   // Input: has all basic props + errorMessage
-// };
-
-// export type ButtonProps = BaseComponentProps & {
-//   // Button: has no isRequired or errorMessage
-// };
-
-// export type LinkProps = BaseComponentProps & {
-//   // Link: same as Button
-// };
-
-// export type GridProps = BaseComponentProps & {
-//   // Grid: only basic props (no valueField?)
-// };
-
-// export type ComponentType = "input" | "button" | "link" | "grid";
-
-// export interface ComponentNode {
-//   id: string;
-//   type: ComponentType;
-//   props: InputProps | ButtonProps | LinkProps | GridProps;
-//   children?: ComponentNode[];
-// }
-
-
-// src/types/design-types.ts
 export type BaseProps = {
-  name?: string;
-  xpath?: string;
-  valueField?: string;
-  isRequired?: boolean;
-  isDisable?: boolean;
-  isVisible?: boolean;
-  errorMessage?: string;
+  name?: string; // Tên hiển thị/logic của control
+  xpath?: string; // Bộ định vị (locator)
+  valueField?: string; // Giá trị ánh xạ từ data driver/dữ liệu đầu vào
+  isRequired?: boolean; // Có bắt buộc nhập không
+  isDisable?: boolean; // Trạng thái bị vô hiệu hóa
+  isVisible?: boolean; // Trạng thái hiển thị
+  errorMessage?: string; // Thông báo lỗi xác thực
+  [key: string]: any; // Index Signature quan trọng
 };
 
-export type ButtonProps = Omit<BaseProps, "isRequired" | "errorMessage">;
-export type LinkProps = ButtonProps;
-export type GridProps = Omit<BaseProps, "valueField" | "isRequired" | "errorMessage">;
+export type InputProps = BaseProps & {
+  type?: 'text' | 'password' | 'email' | 'number'; // Kiểu nhập liệu
+  maxLength?: number; // Giới hạn số ký tự
+  placeholder?: string; // Văn bản giữ chỗ
+};
+
+export type ButtonProps = Omit<BaseProps, 'isRequired' | 'errorMessage'> & {
+  actionType?: 'submit' | 'click' | 'reset'; // Loại hành động
+  tooltipText?: string; // Văn bản hiển thị khi hover
+};
+
+export type LinkProps = Omit<BaseProps, 'isRequired' | 'errorMessage'> & {
+  href?: string; // URL đích (Hyperlink Reference)
+  isExternal?: boolean; // Có phải là link ngoài không
+};
+
+export type ToggleProps = Omit<BaseProps, 'errorMessage'> & {
+  // Thay thế isRequired/errorMessage bằng thuộc tính trạng thái
+  isChecked?: boolean; // Trạng thái đã được check/chọn
+  groupName?: string; // Tên nhóm (chủ yếu cho Radio Button)
+};
+
+export type DropdownProps = Omit<BaseProps, 'errorMessage'> & {
+  // Bỏ errorMessage vì xác thực thường là kiểm tra 'isRequired'
+  defaultOption?: string; // Giá trị mặc định được chọn
+  availableOptions?: string[]; // Danh sách tất cả các lựa chọn khả dụng
+  selectionType?: 'single' | 'multiple'; // Có cho phép chọn nhiều không
+};
+
+export type GridProps = Omit<BaseProps, 'valueField' | 'isRequired' | 'errorMessage'> & {
+  headerColumns?: string[]; // Danh sách tên các cột
+  rowCount?: number; // Số lượng hàng dự kiến
+  isSortable?: boolean; // Có thể sắp xếp dữ liệu không
+};
+
 
 export type ComponentNode = {
   id: string;
-  type: "input" | "button" | "link" | "grid";
+  type: "input" | "button" | "link" | "grid"| "dropdown" | "toggle"; // Mở rộng thêm các loại control khác nếu cần
   props: BaseProps ;
   children: ComponentNode[];
 };
