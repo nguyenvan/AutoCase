@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useDrop } from "react-dnd";
-import type { ComponentNode } from "../../types/design-types";
+import type { ComponentNode, BaseProps } from "../../types/design-types";
 import { useDesignStore } from "../../store/useDesignStore";
 import RenderNode from "./RenderNode";
 import { Toolbox } from "../toolbox/Toolbox";
@@ -16,22 +16,35 @@ const DesignCanvas: React.FC = () => {
   } = useDesignStore();
 
   const dropRef = useRef<HTMLDivElement>(null);
+  
+  // 1. Khởi tạo Tham chiếu Bộ đếm Toàn cục
+  const globalIndexRef = useRef(0);
+  
+  // THAY ĐỔI TẠI ĐÂY:
+  // Nếu số thứ tự là 2, 4, 6... (tăng 2 lần) và bạn muốn 1, 3, 5..., 
+  // hãy thử reset về 0 (như cũ). 
+  // Nếu bạn muốn 1, 2, 3... (tăng 1 lần), hãy thử reset về -1.
+  globalIndexRef.current = 0;
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "toolbox-item",
     drop: (item: { type: string }) => {
+      // Khởi tạo thuộc tính mặc định cho BaseProps
+      const defaultProps: BaseProps = {
+        name: "",
+        xpath: "",
+        valueField: "",
+        isRequired: false,
+        isDisable: false,
+        isVisible: true,
+        errorMessage: "",
+      };
+      
       const newComponent: ComponentNode = {
         id: crypto.randomUUID(),
         type: item.type as ComponentNode["type"],
-        props: {
-          name: "",
-          xpath: "",
-          valueField: "",
-          isRequired: false,
-          isDisable: false,
-          isVisible: true,
-          errorMessage: "",
-        },
+        // Sử dụng các thuộc tính mặc định
+        props: defaultProps,
         children: [],
       };
       addComponent(newComponent);
@@ -89,6 +102,8 @@ const DesignCanvas: React.FC = () => {
               key={c.id}
               node={c}
               onClick={() => setSelected(c.id)}
+              // 2. TRUYỀN THAM CHIẾU BỘ ĐẾM VÀO COMPONENT ĐỆ QUY
+              indexRef={globalIndexRef} 
             />
           ))}
         </div>
