@@ -22,7 +22,7 @@ type DesignStore = {
   saveDesign: () => void;
 };
 
-export const useDesignStore = create<DesignStore>((set) => ({
+export const useDesignStore = create<DesignStore>((set, get) => ({
   // -------------------------
   // Initial State
   // -------------------------
@@ -91,15 +91,58 @@ export const useDesignStore = create<DesignStore>((set) => ({
   // -------------------------
   // Save Design
   // -------------------------
-  saveDesign: () =>
-    set((state) => {
-      const payload = {
-        testCaseName: state.testCaseName,
-        components: state.components,
-        links: state.links,
-      };
+  saveDesign: () => {
+    const state = get(); // Lấy state hiện tại bằng get()
 
-      console.log("Saving design:", JSON.stringify(payload, null, 2));
-      return state;
-    }),
+    const name = state.testCaseName.trim();
+
+    // 1. Kiểm tra điều kiện bắt buộc
+    if (!name) {
+      alert("⚠️ Vui lòng nhập Tên Test Case trước khi lưu.");
+      return;
+    }
+    if (state.components.length === 0) {
+      alert("⚠️ Design Area không được để trống.");
+      return;
+    }
+
+    // 2. Chuẩn bị Payload
+    const payload = {
+      name: name,
+      components: state.components,
+      // Bạn có thể thêm testData và description nếu có form nhập liệu riêng
+      // testData: state.testData || {}, 
+      // description: state.description || "",
+    };
+    const BACKEND_URL = 'http://localhost:5000'; // ⬅️ ĐỊNH NGHĨA BACKEND URL  
+    // 3. Gọi API Backend (POST request)
+    fetch(`${BACKEND_URL}/api/design/micro`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+      .then(async response => {
+        const data = await response.json();
+
+        if (!response.ok) {
+          // Xử lý lỗi từ Backend (ví dụ: trùng tên Test Case - status 409)
+          const errorMessage = data.msg || `Lỗi HTTP! Status: ${response.status}`;
+          throw new Error(errorMessage);
+        }
+        return data;
+      })
+      .then(data => {
+        console.log("Design saved successfully! ID:", data.id);
+        alert(`✅ Lưu Test Case thành công! ID: ${data.id}`);
+
+        // Tùy chọn: Sau khi lưu thành công, bạn có thể reset selectedId
+        set({ selectedId: null });
+      })
+      .catch(error => {
+        console.error("Lỗi khi lưu thiết kế:", error.message);
+        alert(`❌ Lỗi lưu: ${error.message}`);
+      });
+  }
 }));

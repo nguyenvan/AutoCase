@@ -1,0 +1,23 @@
+// src/models/IComponentNode.ts
+import { Schema } from 'mongoose';
+
+// 1. Interface cho Component Node (ComponentNode)
+export interface IComponentNode {
+    id: string;
+    type: string;
+    props: Record<string, any>; // Sử dụng Record<string, any> cho các thuộc tính linh hoạt
+    children?: IComponentNode[]; // Tự tham chiếu
+}
+
+// 2. Schema cho Component Node
+export const ComponentNodeSchema: Schema<IComponentNode> = new Schema({
+    id: { type: String, required: true },
+    type: { type: String, required: true, index: true },
+    props: { type: Object, default: {} },
+    // children sẽ được thêm sau
+}, { _id: false }); 
+
+// Tự tham chiếu đệ quy
+ComponentNodeSchema.add({
+    children: [ComponentNodeSchema]
+});
