@@ -14,9 +14,8 @@ const ItemTypes = {
 // Khai báo kiểu Props mới
 type Props = {
   node: ComponentNode;
-  onClick: () => void;
-  // Tham chiếu mutable (useRef) để quản lý số thứ tự toàn cục
- // indexRef: React.MutableRefObject<number>;
+ onClick: (e: React.MouseEvent) => void; // Chấp nhận sự kiện chuột
+
 };
 
 const RenderNode: React.FC<Props> = ({ node, onClick }) => {
@@ -83,7 +82,7 @@ const RenderNode: React.FC<Props> = ({ node, onClick }) => {
       ref={ref}
       onClick={(e) => {
         e.stopPropagation();
-        onClick();
+        onClick(e);
       }}
       // ❗ THÊM CLASS CHO DND (Kéo và Thả)
       className={`relative border p-3 rounded mb-2 cursor-move transition-all duration-100 ${selected ? "border-blue-500 bg-blue-50 shadow-md" : "border-gray-300 hover:border-gray-400"

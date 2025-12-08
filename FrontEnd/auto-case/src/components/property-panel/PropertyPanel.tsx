@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDesignStore } from '../../store/useDesignStore';
 // Import tất cả các kiểu đã định nghĩa của bạn từ file types/control.ts
-import type { BaseProps, ComponentNode } from '../../types/design-types'; 
+import type { BaseProps, ComponentNode } from '../../types/design-types';
 
 // --- Component Phụ Trợ (Giữ nguyên) ---
 
@@ -48,7 +48,7 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({ label, checked, onChange 
 // --- Cấu hình Thuộc tính theo Control Type ---
 
 type PropertyConfig = {
-  key: keyof BaseProps | string; 
+  key: keyof BaseProps | string;
   label: string;
   type: 'text' | 'boolean' | 'number' | 'select'; // Thêm 'select' cho Dropdown/Type
   defaultValue?: any;
@@ -70,12 +70,12 @@ const CONTROL_PROPERTIES: { [key: string]: PropertyConfig[] } = {
     { key: 'isVisible', label: 'Is Visible', type: 'boolean', defaultValue: true },
     { key: 'maxLength', label: 'Max Length', type: 'number' },
     { key: 'placeholder', label: 'Placeholder', type: 'text' },
-    { 
-        key: 'type', 
-        label: 'Input Type', 
-        type: 'select', 
-        options: ['text', 'password', 'email', 'number'], 
-        defaultValue: 'text' 
+    {
+      key: 'type',
+      label: 'Input Type',
+      type: 'select',
+      options: ['text', 'password', 'email', 'number'],
+      defaultValue: 'text'
     },
   ],
 
@@ -85,12 +85,12 @@ const CONTROL_PROPERTIES: { [key: string]: PropertyConfig[] } = {
     { key: 'isDisable', label: 'Is Disable', type: 'boolean', defaultValue: false },
     { key: 'isVisible', label: 'Is Visible', type: 'boolean', defaultValue: true },
     { key: 'tooltipText', label: 'Tooltip Text', type: 'text' },
-    { 
-        key: 'actionType', 
-        label: 'Action Type', 
-        type: 'select', 
-        options: ['submit', 'click', 'reset'],
-        defaultValue: 'click'
+    {
+      key: 'actionType',
+      label: 'Action Type',
+      type: 'select',
+      options: ['submit', 'click', 'reset'],
+      defaultValue: 'click'
     },
   ],
 
@@ -121,13 +121,13 @@ const CONTROL_PROPERTIES: { [key: string]: PropertyConfig[] } = {
     { key: 'isVisible', label: 'Is Visible', type: 'boolean', defaultValue: true },
     { key: 'defaultOption', label: 'Default Option', type: 'text' },
     // Thuộc tính 'availableOptions' là Array, cần component phức tạp hơn, tạm để dạng Text/JSON
-    { key: 'availableOptions', label: 'Available Options (JSON/CSV)', type: 'text' }, 
-    { 
-        key: 'selectionType', 
-        label: 'Selection Type', 
-        type: 'select', 
-        options: ['single', 'multiple'], 
-        defaultValue: 'single' 
+    { key: 'availableOptions', label: 'Available Options (JSON/CSV)', type: 'text' },
+    {
+      key: 'selectionType',
+      label: 'Selection Type',
+      type: 'select',
+      options: ['single', 'multiple'],
+      defaultValue: 'single'
     },
   ],
 
@@ -137,7 +137,7 @@ const CONTROL_PROPERTIES: { [key: string]: PropertyConfig[] } = {
     { key: 'isVisible', label: 'Is Visible', type: 'boolean', defaultValue: true },
     { key: 'rowCount', label: 'Expected Row Count', type: 'number' },
     // Thuộc tính 'headerColumns' là Array, tạm để dạng Text/JSON
-    { key: 'headerColumns', label: 'Header Columns (JSON/CSV)', type: 'text' }, 
+    { key: 'headerColumns', label: 'Header Columns (JSON/CSV)', type: 'text' },
     { key: 'isSortable', label: 'Is Sortable', type: 'boolean', defaultValue: false },
   ],
 };
@@ -145,14 +145,15 @@ const CONTROL_PROPERTIES: { [key: string]: PropertyConfig[] } = {
 // --- Component Chính: PropertyPanel ---
 
 const PropertyPanel: React.FC = () => {
+  
   const { selectedId, components, updateProps } = useDesignStore();
-
+  console.log("PropertyPanel Rendered with selectedId:", selectedId);
   if (!selectedId) {
     return <div className="p-4 text-gray-500">Vui lòng chọn một Component</div>;
   }
 
   // Ép kiểu để sử dụng Index Signature
-  const component = components.find((c) => c.id === selectedId) as ComponentNode | undefined; 
+  const component = components.find((c) => c.id === selectedId) as ComponentNode | undefined;
 
   if (!component) {
     return <div className="p-4 text-red-500">Không tìm thấy Component</div>;
@@ -182,11 +183,11 @@ const PropertyPanel: React.FC = () => {
           key={field.key}
           label={field.label}
           // Sử dụng Index Signature để truy cập props[field.key]
-          value={props[field.key] ?? field.defaultValue ?? ''} 
+          value={props[field.key] ?? field.defaultValue ?? ''}
           onChange={(value) => handleChange(field.key as string, value)}
         />
       ))}
-      
+
       <hr className="my-4" />
 
       {/* 2. Render Thuộc tính Đặc thù theo loại Component */}
@@ -198,7 +199,7 @@ const PropertyPanel: React.FC = () => {
             <CheckboxGroup
               key={field.key}
               label={field.label}
-              checked={!!currentValue} 
+              checked={!!currentValue}
               onChange={(checked) => handleChange(field.key as string, checked)}
             />
           );
@@ -215,28 +216,28 @@ const PropertyPanel: React.FC = () => {
             />
           );
         }
-        
+
         if (field.type === 'select' && field.options) {
-            return (
-                <div key={field.key} className="mb-3">
-                    <label className="block text-sm font-medium mb-1">{field.label}</label>
-                    <select
-                        className="border border-gray-300 rounded p-2 w-full text-sm focus:ring-blue-500 focus:border-blue-500"
-                        value={currentValue}
-                        onChange={(e) => handleChange(field.key as string, e.target.value)}
-                    >
-                        {field.options.map(option => (
-                            <option key={option} value={option}>
-                                {option.charAt(0).toUpperCase() + option.slice(1)}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-            );
+          return (
+            <div key={field.key} className="mb-3">
+              <label className="block text-sm font-medium mb-1">{field.label}</label>
+              <select
+                className="border border-gray-300 rounded p-2 w-full text-sm focus:ring-blue-500 focus:border-blue-500"
+                value={currentValue}
+                onChange={(e) => handleChange(field.key as string, e.target.value)}
+              >
+                {field.options.map(option => (
+                  <option key={option} value={option}>
+                    {option.charAt(0).toUpperCase() + option.slice(1)}
+                  </option>
+                ))}
+              </select>
+            </div>
+          );
         }
         return null;
       })}
-      
+
       {specificFields.length === 0 && (
         <p className="text-sm text-gray-500">Không có thuộc tính đặc thù nào được định nghĩa cho loại Component này.</p>
       )}

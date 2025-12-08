@@ -7,7 +7,7 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <Sidebar />
 
       {/* Main content */}
-      <div className="flex-1 h-screen overflow-auto bg-gray-100 p-4">
+      <div className="flex-1 h-screen overflow-auto bg-white-100 p-4">
         {children}
       </div>
     </div>
