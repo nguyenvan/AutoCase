@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // ⭐ Import useNavigate
 import { Edit, Link as LinkIcon, Plus, Trash } from 'lucide-react';
 
 // Giả định dữ liệu cứng cho Macro Flow vì Backend API chưa có
@@ -8,12 +9,14 @@ const dummyMacroFlows = [
 ];
 
 const MacroFlowListPage: React.FC = () => {
-    // Trong thực tế, bạn sẽ có state và useEffect để fetch dữ liệu từ /api/design/macro
-    
+    // ⭐ Khởi tạo hook useNavigate
+    const navigate = useNavigate();
+
     const handleNew = () => {
         // Chuyển hướng đến trang tạo Macro Flow mới
-        alert('Tạo Macro Flow mới...'); 
-        // navigate('/macro/new');
+        console.log('Chuyển hướng đến trang tạo Macro Flow...');
+        // ⭐ Dùng navigate để chuyển hướng đến path đã định nghĩa
+        navigate('/macro-design');
     };
 
     return (

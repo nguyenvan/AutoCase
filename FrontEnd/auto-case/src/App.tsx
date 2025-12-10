@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard";
 import AppLayout from "./layout/AppLayout";
 import MicroCaseListPage from "./pages/MicroCaseListPage";
 import MacroFlowListPage from "./pages/MacroFlowListPage";
+import MacroFlowCreatePage from "./pages/MacroFlowCreatePage";
 
 export default function App() {
   return (
@@ -15,6 +16,10 @@ export default function App() {
         {/* Route 2: Chỉnh sửa (với ID là tham số) */}
         <Route path="/design/:id" element={<DesignPage />} />
         <Route path="/micro-cases" element={<MicroCaseListPage />} />
+
+        {/* Route 1: Tạo mới (không có ID) */}
+        <Route path="/macro-design" element={<MacroFlowCreatePage />} />
+
         <Route path="/macro-flows" element={<MacroFlowListPage />} />
       </Routes>
     </AppLayout>
