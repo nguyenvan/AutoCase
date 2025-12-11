@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { Search, Loader2, RefreshCw } from 'lucide-react';
-import type { IMicroTestCaseSummary } from '@/types/macro-types';
 import type { ITestCaseListItem } from '@/interfaces/TestCaseInterfaces';
 
 const BACKEND_URL = 'http://localhost:5000'; // URL của Design Manager Service
@@ -121,7 +120,7 @@ const MacroFlowToolbox: React.FC = () => { // Bỏ MacroFlowToolboxProps
                 Micro Cases Có Sẵn ({microCases.length})
             </h3>
             
-            <div className='relative mb-4 flex-shrink-0'>
+            <div className='relative mb-4 shrink-0'>
                  <input 
                     type="text" 
                     placeholder="Tìm kiếm Micro Case..."

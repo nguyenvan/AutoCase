@@ -43,21 +43,21 @@ const DesignCanvas: React.FC = () => {
 
 
     // ⭐ EFFECT MỚI: Tự động chọn component sau khi TẢI XONG
- useEffect(() => {
-    // Điều kiện CHÍNH:
-    // 1. Phải có components
-    // 2. VÀ, KHÔNG CÓ selectedId (nghĩa là chưa có gì được chọn)
-    if (components.length > 0 && !selectedId) {
-        // Lấy ID của component đầu tiên
-        const firstComponentId = components[0].id;
-        
-        // Chỉ set khi chưa có gì được chọn
-        setSelected(firstComponentId);
-    }
-    
-    // Dependency Array: Cần cả components (để chạy khi data load) 
-    // và selectedId (để không chạy nếu đã có ID)
-}, [components, selectedId, setSelected]);
+    useEffect(() => {
+        // Điều kiện CHÍNH:
+        // 1. Phải có components
+        // 2. VÀ, KHÔNG CÓ selectedId (nghĩa là chưa có gì được chọn)
+        if (components.length > 0 && !selectedId) {
+            // Lấy ID của component đầu tiên
+            const firstComponentId = components[0].id;
+
+            // Chỉ set khi chưa có gì được chọn
+            setSelected(firstComponentId);
+        }
+
+        // Dependency Array: Cần cả components (để chạy khi data load) 
+        // và selectedId (để không chạy nếu đã có ID)
+    }, [components, selectedId, setSelected]);
     // ----------------------------------------------------
 
     // Logic DND để thêm component mới từ Toolbox (Giữ nguyên)

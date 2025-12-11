@@ -14,7 +14,7 @@ const ItemTypes = {
 // Khai báo kiểu Props mới
 type Props = {
   node: ComponentNode;
- onClick: (e: React.MouseEvent) => void; // Chấp nhận sự kiện chuột
+  onClick: (e: React.MouseEvent) => void; // Chấp nhận sự kiện chuột
 
 };
 
@@ -72,9 +72,6 @@ const RenderNode: React.FC<Props> = ({ node, onClick }) => {
   if (node.props.isVisible === false) {
     return null;
   }
- 
-
-  // --- KẾT THÚC LOGIC QUẢN LÝ SỐ THỨ TỰ ---
 
   return (
     <div
@@ -91,9 +88,7 @@ const RenderNode: React.FC<Props> = ({ node, onClick }) => {
       ${isOverCurrent ? "border-dashed border-2 border-red-500" : ""}`}
       style={isDisabled ? { opacity: 0.6, pointerEvents: 'none' } : {}}
     >
-      {/* 📌 HIỂN THỊ SỐ THỨ TỰ */}
-    
-
+     
       {/* Remove button */}
       <button
         className="absolute top-[-10px] right-[-10px] p-1 rounded-full bg-white border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition duration-150 z-20 shadow-md"
@@ -182,7 +177,7 @@ const RenderNode: React.FC<Props> = ({ node, onClick }) => {
       {node.children && node.children.length > 0 && (
         <div className="mt-3 ml-3 border-l border-dashed pl-3 border-gray-400">
           {node.children.map((childNode) => (
-            <RenderNode key={childNode.id} node={childNode} onClick={onClick}  />
+            <RenderNode key={childNode.id} node={childNode} onClick={onClick} />
           ))}
         </div>
       )}
