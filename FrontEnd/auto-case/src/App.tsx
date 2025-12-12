@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { DesignPage } from "./pages/DesignPage";
+import { DesignPage } from "./pages/DesignMicroPage";
 import Dashboard from "./pages/Dashboard";
 import AppLayout from "./layout/AppLayout";
 import MicroCaseListPage from "./pages/MicroCaseListPage";

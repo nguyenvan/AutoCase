@@ -1,8 +1,6 @@
 import { create } from "zustand";
 import type { ComponentNode } from "../types/design-types";
-
-// URL của Design Manager Service (Giữ nguyên)
-const BACKEND_URL = 'http://localhost:5000';
+import { API_URL } from "@/utils/constants";
 
 // --- 1. Định nghĩa Interface cho dữ liệu nhận từ Backend (IMicroTestCase) ---
 // Đây là interface tối thiểu cần thiết để tải dữ liệu chỉnh sửa
@@ -50,6 +48,7 @@ type DesignStore = typeof initialState & {
 };
 
 export const useDesignStore = create<DesignStore>((set, get) => ({
+ 
   // -------------------------
   // Initial State (Sử dụng initialState)
   // -------------------------
@@ -123,7 +122,7 @@ export const useDesignStore = create<DesignStore>((set, get) => ({
   // -------------------------  
   saveDesign: async (caseId: string | undefined) => {
     const state = get();
-
+  
     // Chuẩn hóa payload
     const payload = {
       name: state.testCaseName,
@@ -139,8 +138,8 @@ export const useDesignStore = create<DesignStore>((set, get) => ({
 
     const method = caseId ? 'PUT' : 'POST';
     const url = caseId
-      ? `${BACKEND_URL}/api/design/micro/${caseId}`
-      : `${BACKEND_URL}/api/design/micro`;
+      ? `${API_URL}/api/design/micro/${caseId}`
+      : `${API_URL}/api/design/micro`;
 
     try {
       const response = await fetch(url, {
@@ -176,7 +175,7 @@ export const useDesignStore = create<DesignStore>((set, get) => ({
   fetchDesignForEdit: async (caseId: string) => {
     set({ loading: true, error: null });
     try {
-      const response = await fetch(`${BACKEND_URL}/api/design/micro/${caseId}`);
+      const response = await fetch(`${API_URL}/api/design/micro/${caseId}`);
 
       if (!response.ok) {
         throw new Error('Không thể tải dữ liệu Test Case.');

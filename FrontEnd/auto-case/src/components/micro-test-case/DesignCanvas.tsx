@@ -3,8 +3,9 @@ import { useDrop } from "react-dnd";
 import { useParams, useNavigate } from "react-router-dom"; // Import thêm useParams và useNavigate
 import type { ComponentNode, BaseProps } from "../../types/design-types";
 import { useDesignStore } from "../../store/useDesignStore";
+import { Toolbox } from "./Toolbox";
 import RenderNode from "./RenderNode";
-import { Toolbox } from "../toolbox/Toolbox";
+
 
 const DesignCanvas: React.FC = () => {
     // 1. Lấy ID từ URL

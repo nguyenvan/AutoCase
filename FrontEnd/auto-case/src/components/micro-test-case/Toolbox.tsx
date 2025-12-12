@@ -1,7 +1,4 @@
 import React from "react";
-// Import icons cần thiết từ lucide-react (đã có trong file gốc của bạn)
-// import { icons } from "lucide-react"; 
-
 import { ToolboxItem } from "./ToolboxItem";
 
 export const Toolbox: React.FC = () => {
