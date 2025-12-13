@@ -106,10 +106,10 @@ const DesignCanvas: React.FC = () => {
 
     // --- RENDER LOGIC: Xử lý trạng thái tải/lỗi ---
     if (loading) {
-        return <div className="p-8 text-center text-blue-600">Đang tải Test Case (ID: {id})...</div>;
+        return <div className="p-8 text-center text-blue-600">Loading Test Case (ID: {id})...</div>;
     }
     if (error) {
-        return <div className="p-8 text-center text-red-600">Lỗi: {error}</div>;
+        return <div className="p-8 text-center text-red-600">Error: {error}</div>;
     }
 
     return (
@@ -119,19 +119,19 @@ const DesignCanvas: React.FC = () => {
             <div className="flex flex-col gap-3 border-b pb-4">
                 <div className="flex items-center justify-between">
                     <h1 className="text-xl font-bold text-gray-800">
-                        {id ? `Chỉnh sửa: ${testCaseName}` : 'Tạo Micro Test Case Mới'}
+                        {id ? `Edit Micro Test Case: ${testCaseName}` : 'Create Micro Test Case'}
                     </h1>
                     <button
                         onClick={handleSave}
                         className="ml-4 px-5 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-150 shadow-md"
                     >
-                        {id ? '💾 Cập Nhật' : '💾 Lưu Test Case'}
+                        {id ? '💾 Update' : '💾 Save'}
                     </button>
                 </div>
 
                 {/* Input Tên Test Case */}
                 <div className="flex items-center gap-3">
-                    <label className="font-medium w-40 text-gray-700">Tên Test Case:</label>
+                    <label className="font-medium w-40 text-gray-700">Test Case Name:</label>
                     <input
                         value={testCaseName}
                         onChange={(e) => setTestCaseName(e.target.value)}
@@ -142,13 +142,13 @@ const DesignCanvas: React.FC = () => {
 
                 {/* Input Mô tả */}
                 <div className="flex items-start gap-3">
-                    <label className="font-medium w-40 text-gray-700 pt-2">Mô tả:</label>
+                    <label className="font-medium w-40 text-gray-700 pt-2">Description:</label>
                     <textarea
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         rows={2}
                         className="border border-gray-300 px-3 py-2 rounded w-full focus:ring-blue-500 focus:border-blue-500 transition duration-150"
-                        placeholder="Mô tả ngắn gọn về chức năng của test case này"
+                        placeholder="Briefly describe the function of this test case."
                     />
                 </div>
             </div>

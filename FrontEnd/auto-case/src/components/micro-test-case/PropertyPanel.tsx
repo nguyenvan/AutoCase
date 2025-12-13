@@ -1,9 +1,7 @@
 import React from 'react';
 import { useDesignStore } from '../../store/useDesignStore';
-// Import tất cả các kiểu đã định nghĩa của bạn từ file types/control.ts
 import type { BaseProps, ComponentNode } from '../../types/design-types';
-
-// --- Component Phụ Trợ (Giữ nguyên) ---
+import { COMMON_PROPS, CONTROL_PROPERTIES } from '@/utils/constants';
 
 interface InputGroupProps {
   label: string;
@@ -12,6 +10,11 @@ interface InputGroupProps {
   type?: 'text' | 'number';
 }
 
+interface CheckboxGroupProps {
+  label: string;
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+}
 const InputGroup: React.FC<InputGroupProps> = ({ label, value, onChange, type = 'text' }) => (
   <div className="mb-3">
     <label className="block text-sm font-medium mb-1">{label}</label>
@@ -24,11 +27,6 @@ const InputGroup: React.FC<InputGroupProps> = ({ label, value, onChange, type = 
   </div>
 );
 
-interface CheckboxGroupProps {
-  label: string;
-  checked: boolean;
-  onChange: (checked: boolean) => void;
-}
 
 const CheckboxGroup: React.FC<CheckboxGroupProps> = ({ label, checked, onChange }) => (
   <div className="flex items-center mb-3">
@@ -45,109 +43,13 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({ label, checked, onChange 
   </div>
 );
 
-// --- Cấu hình Thuộc tính theo Control Type ---
 
-type PropertyConfig = {
-  key: keyof BaseProps | string;
-  label: string;
-  type: 'text' | 'boolean' | 'number' | 'select'; // Thêm 'select' cho Dropdown/Type
-  defaultValue?: any;
-  options?: string[]; // Cho select input
-};
-
-const COMMON_PROPS: PropertyConfig[] = [
-  { key: 'name', label: 'Name', type: 'text' },
-  { key: 'xpath', label: 'XPath / Selector', type: 'text' },
-];
-
-const CONTROL_PROPERTIES: { [key: string]: PropertyConfig[] } = {
-  // --- InputProps ---
-  input: [
-    { key: 'valueField', label: 'Value Field', type: 'text' },
-    { key: 'errorMessage', label: 'Error Message', type: 'text' },
-    { key: 'isRequired', label: 'Is Required', type: 'boolean', defaultValue: false },
-    { key: 'isDisable', label: 'Is Disable', type: 'boolean', defaultValue: false },
-    { key: 'isVisible', label: 'Is Visible', type: 'boolean', defaultValue: true },
-    { key: 'maxLength', label: 'Max Length', type: 'number' },
-    { key: 'placeholder', label: 'Placeholder', type: 'text' },
-    {
-      key: 'type',
-      label: 'Input Type',
-      type: 'select',
-      options: ['text', 'password', 'email', 'number'],
-      defaultValue: 'text'
-    },
-  ],
-
-  // --- ButtonProps ---
-  button: [
-    { key: 'valueField', label: 'Value Field (Text/Key)', type: 'text' },
-    { key: 'isDisable', label: 'Is Disable', type: 'boolean', defaultValue: false },
-    { key: 'isVisible', label: 'Is Visible', type: 'boolean', defaultValue: true },
-    { key: 'tooltipText', label: 'Tooltip Text', type: 'text' },
-    {
-      key: 'actionType',
-      label: 'Action Type',
-      type: 'select',
-      options: ['submit', 'click', 'reset'],
-      defaultValue: 'click'
-    },
-  ],
-
-  // --- LinkProps ---
-  link: [
-    { key: 'valueField', label: 'Link Text', type: 'text' },
-    { key: 'isDisable', label: 'Is Disable', type: 'boolean', defaultValue: false },
-    { key: 'isVisible', label: 'Is Visible', type: 'boolean', defaultValue: true },
-    { key: 'href', label: 'Href (URL)', type: 'text' },
-    { key: 'isExternal', label: 'Is External Link', type: 'boolean', defaultValue: false },
-  ],
-
-  // --- ToggleProps (Checkbox/Radio) ---
-  toggle: [
-    { key: 'valueField', label: 'Value Field (Key)', type: 'text' },
-    { key: 'isRequired', label: 'Is Required', type: 'boolean', defaultValue: false },
-    { key: 'isDisable', label: 'Is Disable', type: 'boolean', defaultValue: false },
-    { key: 'isVisible', label: 'Is Visible', type: 'boolean', defaultValue: true },
-    { key: 'isChecked', label: 'Is Checked/Selected', type: 'boolean', defaultValue: false },
-    { key: 'groupName', label: 'Group Name (Radio)', type: 'text' },
-  ],
-
-  // --- DropdownProps ---
-  dropdown: [
-    { key: 'valueField', label: 'Selected Value', type: 'text' },
-    { key: 'isRequired', label: 'Is Required', type: 'boolean', defaultValue: false },
-    { key: 'isDisable', label: 'Is Disable', type: 'boolean', defaultValue: false },
-    { key: 'isVisible', label: 'Is Visible', type: 'boolean', defaultValue: true },
-    { key: 'defaultOption', label: 'Default Option', type: 'text' },
-    // Thuộc tính 'availableOptions' là Array, cần component phức tạp hơn, tạm để dạng Text/JSON
-    { key: 'availableOptions', label: 'Available Options (JSON/CSV)', type: 'text' },
-    {
-      key: 'selectionType',
-      label: 'Selection Type',
-      type: 'select',
-      options: ['single', 'multiple'],
-      defaultValue: 'single'
-    },
-  ],
-
-  // --- GridProps ---
-  grid: [
-    { key: 'isDisable', label: 'Is Disable', type: 'boolean', defaultValue: false },
-    { key: 'isVisible', label: 'Is Visible', type: 'boolean', defaultValue: true },
-    { key: 'rowCount', label: 'Expected Row Count', type: 'number' },
-    // Thuộc tính 'headerColumns' là Array, tạm để dạng Text/JSON
-    { key: 'headerColumns', label: 'Header Columns (JSON/CSV)', type: 'text' },
-    { key: 'isSortable', label: 'Is Sortable', type: 'boolean', defaultValue: false },
-  ],
-};
 
 // --- Component Chính: PropertyPanel ---
 
 const PropertyPanel: React.FC = () => {
 
   const { selectedId, components, updateProps } = useDesignStore();
-  console.log("PropertyPanel Rendered with selectedId:", selectedId);
   if (!selectedId) {
     return <div className="p-4 text-gray-500">Vui lòng chọn một Component</div>;
   }
@@ -239,7 +141,7 @@ const PropertyPanel: React.FC = () => {
       })}
 
       {specificFields.length === 0 && (
-        <p className="text-sm text-gray-500">Không có thuộc tính đặc thù nào được định nghĩa cho loại Component này.</p>
+        <p className="text-sm text-gray-500">No specific attributes are defined for this Component type.</p>
       )}
     </div>
   );

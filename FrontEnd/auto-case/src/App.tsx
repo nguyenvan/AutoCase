@@ -3,8 +3,8 @@ import { DesignPage } from "./pages/DesignMicroPage";
 import Dashboard from "./pages/Dashboard";
 import AppLayout from "./layout/AppLayout";
 import MicroCaseListPage from "./pages/MicroCaseListPage";
-import MacroFlowListPage from "./pages/MacroFlowListPage";
 import { DesignMacroPage } from "./pages/DesignMacroPage";
+import MacroCaseListPage from "./pages/MacroCaseListPage";
 
 export default function App() {
   return (
@@ -18,10 +18,10 @@ export default function App() {
         <Route path="/micro-cases" element={<MicroCaseListPage />} />
 
         {/* Route 1: Tạo mới (không có ID) */}
-        {/* <Route path="/macro-design" element={<MacroFlowCreatePage />} /> */}
-         <Route path="/macro-design" element={<DesignMacroPage />} />
+        <Route path="/macro-design" element={<DesignMacroPage />} />
+        <Route path="/macro-design/:id" element={<DesignMacroPage />} />
+        <Route path="/macro-cases" element={<MacroCaseListPage />} />
 
-        <Route path="/macro-flows" element={<MacroFlowListPage />} />
       </Routes>
     </AppLayout>
   );

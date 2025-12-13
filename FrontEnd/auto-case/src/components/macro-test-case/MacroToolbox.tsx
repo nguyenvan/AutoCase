@@ -47,23 +47,23 @@ export const MacroToolbox: React.FC = () => {
   if (loading) {
     content = (
       <div className="flex justify-center items-center p-8 text-blue-600">
-        <Loader2 size={24} className="animate-spin mr-2" /> Đang tải Micro Cases...
+        <Loader2 size={24} className="animate-spin mr-2" /> Loading Micro Cases...
       </div>
     );
   } else if (error) {
     content = (
       <div className="p-4 text-center text-red-600 border border-red-300 bg-red-50 rounded">
-        <p className='font-medium mb-2'>Lỗi tải dữ liệu:</p>
+        <p className='font-medium mb-2'>Erro load data:</p>
         <p className='text-sm italic'>{error}</p>
         <button onClick={fetchMicroCases} className='mt-3 flex items-center justify-center mx-auto text-sm text-red-700 hover:text-red-900'>
-          <RefreshCw size={14} className='mr-1' /> Thử lại
+          <RefreshCw size={14} className='mr-1' /> Try again
         </button>
       </div>
     );
   } else if (filteredCases.length === 0) {
     content = (
       <p className="text-gray-400 text-sm p-2 text-center border border-dashed rounded">
-        {searchTerm ? `Không tìm thấy kết quả cho "${searchTerm}".` : 'Không tìm thấy Micro Case nào.'}
+        {searchTerm ? `No results found for "${searchTerm}".` : 'No Micro Cases found.'}
       </p>
     );
   } else {
@@ -72,11 +72,10 @@ export const MacroToolbox: React.FC = () => {
         {filteredCases.map((mc) => {
           const id = (mc as any)._id || (mc as any).id;
           const name = (mc as any).name || 'Unnamed Case';
-          const description = (mc as any).description || 'Chưa có mô tả';
+          const description = (mc as any).description || 'No description';
 
           return (
             <MacroToolboxItem type="captions" name={name} description={description} id={id} icon="Captions" />
-
           );
         })}
       </div>
@@ -86,7 +85,7 @@ export const MacroToolbox: React.FC = () => {
   return (
     <div className="p-3 bg-white border border-gray-200 rounded shadow-md h-full flex flex-col">
       <h3 className="font-bold text-lg mb-3 text-gray-700">
-        Micro Cases Có Sẵn ({microCases.length})
+        Micro Cases ({microCases.length})
       </h3>
 
       <div className='relative mb-4 shrink-0'>

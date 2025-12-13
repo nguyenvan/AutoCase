@@ -5,7 +5,7 @@ import mongoose, { Document, Schema, Types } from 'mongoose';
 export interface IFlowStep {
     sequence: number;
     microTestCaseId: Types.ObjectId; // Tham chiếu ID của MicroTestCase
-    dataOverride: Record<string, any>;
+    repeat: number;
 }
 
 // Schema cho một bước trong Flow
@@ -16,15 +16,13 @@ const FlowStepSchema: Schema<IFlowStep> = new Schema({
         ref: 'MicroTestCase', // Tham chiếu đến MicroTestCase
         required: true 
     },
-    dataOverride: {
-        type: Object,
-        default: {}
-    }
+     repeat: { type: Number, required: true },
 }, { _id: false, timestamps: false });
 
 // Interface cho Macro Test Case Document
 export interface IMacroTestCase extends Document {
     name: string;
+    description?: string;
     flow: IFlowStep[];
     createdAt: Date;
     updatedAt: Date;
@@ -36,6 +34,11 @@ const MacroTestCaseSchema: Schema<IMacroTestCase> = new Schema({
         required: true,
         trim: true,
         unique: true
+    },
+    description: { 
+        type: String, 
+        trim: true,
+        maxlength: 500 // Giới hạn độ dài
     },
     flow: {
         type: [FlowStepSchema],

@@ -81,7 +81,7 @@ const MacroRenderNode: React.FC<MacroProps> = ({ node, onClick }) => {
 
       {/* Remove button */}
       <button
-        className="absolute top-[-10px] right-[-10px] p-1 rounded-full bg-white border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition duration-150 z-20 shadow-md"
+        className="absolute top-2.5 right-2.5 p-1 rounded-full bg-white border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition duration-150 z-20 shadow-md"
         onClick={(e) => {
           e.stopPropagation();
           removeComponent(node.id);

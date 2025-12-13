@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { useDrop } from "react-dnd";
-import { useParams, useNavigate } from "react-router-dom"; // Import thêm useParams và useNavigate
+import { useParams, useNavigate } from "react-router-dom"; 
 import type { ComponentMacroNode } from "../../types/design-types";
 import { MacroToolbox } from "./MacroToolbox";
 import MacroRenderNode from "./MacroRenderNode";
@@ -113,19 +113,19 @@ const DesignMacroCanvas: React.FC = () => {
             <div className="flex flex-col gap-3 border-b pb-4">
                 <div className="flex items-center justify-between">
                     <h1 className="text-xl font-bold text-gray-800">
-                        {id ? `Chỉnh sửa: ${testCaseName}` : 'Tạo Micro Test Case Mới'}
+                        {id ? `Edit Micro Test Case: ${testCaseName}` : 'Create Micro Test Case'}
                     </h1>
                     <button
                         onClick={handleSave}
                         className="ml-4 px-5 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-150 shadow-md"
                     >
-                        {id ? '💾 Cập Nhật' : '💾 Lưu Test Case'}
+                        {id ? '💾 Update' : '💾 Save'}
                     </button>
                 </div>
 
                 {/* Input Tên Test Case */}
                 <div className="flex items-center gap-3">
-                    <label className="font-medium w-40 text-gray-700">Tên Test Case:</label>
+                    <label className="font-medium w-40 text-gray-700">Test Case Name:</label>
                     <input
                         value={testCaseName}
                         onChange={(e) => setTestCaseName(e.target.value)}
@@ -136,13 +136,13 @@ const DesignMacroCanvas: React.FC = () => {
 
                 {/* Input Mô tả */}
                 <div className="flex items-start gap-3">
-                    <label className="font-medium w-40 text-gray-700 pt-2">Mô tả:</label>
+                    <label className="font-medium w-40 text-gray-700 pt-2">Description:</label>
                     <textarea
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         rows={2}
                         className="border border-gray-300 px-3 py-2 rounded w-full focus:ring-blue-500 focus:border-blue-500 transition duration-150"
-                        placeholder="Mô tả ngắn gọn về chức năng của test case này"
+                        placeholder="Briefly describe the function of this test case."
                     />
                 </div>
             </div>
@@ -151,7 +151,7 @@ const DesignMacroCanvas: React.FC = () => {
             <div className="flex h-full gap-4">
 
                 {/* LEFT COLUMN – TOOLBOX */}
-                <div className="w-[180px] border border-gray-300 rounded bg-white p-2 h-fit shadow-md">
+                <div className="w-[250px] border border-gray-300 rounded bg-white p-2 h-fit shadow-md">
                     <MacroToolbox />
                 </div>
 
@@ -171,7 +171,6 @@ const DesignMacroCanvas: React.FC = () => {
                             <MacroRenderNode
                                 key={c.id}
                                 node={c}
-
                                 onClick={(e) => { e.stopPropagation(); setSelected(c.id); }} />
                         ))
                     )}

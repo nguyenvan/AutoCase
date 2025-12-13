@@ -21,7 +21,7 @@ const menuItems = [
     type: "parent" as const,
     children: [
       { label: "Micro Test Cases", path: "/micro-cases", icon: ListTree },
-      { label: "Macro Test Cases", path: "/macro-flows", icon: LinkIcon },
+      { label: "Macro Test Cases", path: "/macro-cases", icon: LinkIcon },
     ],
   },
   // Giữ lại Design Test Case nếu bạn vẫn muốn nó là một mục riêng biệt ở cấp cao nhất
