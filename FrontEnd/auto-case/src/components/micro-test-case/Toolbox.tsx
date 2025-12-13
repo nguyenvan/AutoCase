@@ -9,25 +9,25 @@ export const Toolbox: React.FC = () => {
       <div className="flex flex-col gap-2">
         {/* 1. Input Field */}
         <ToolboxItem type="input" label="Input Field" icon="TextCursorInput" />
-        
+
         {/* 2. Button */}
         <ToolboxItem type="button" label="Button" icon="Square" />
-        
+
         {/* 3. Link */}
         <ToolboxItem type="link" label="Link" icon="Link" />
-        
+
         {/* 4. Grid / Table */}
         <ToolboxItem type="grid" label="Grid / Table" icon="Table" />
-        
+
         {/* --- CÁC CONTROL CÒN THIẾU --- */}
-        
+
         {/* 5. Toggle (Checkbox/Radio Button) */}
         {/* Sử dụng CheckSquare hoặc ToggleLeft để đại diện cho trạng thái bật/tắt */}
-        <ToolboxItem type="toggle" label="Checkbox/Radio" icon="ToggleLeft" /> 
-        
+        <ToolboxItem type="toggle" label="Checkbox/Radio" icon="ToggleLeft" />
+
         {/* 6. Dropdown (Select/ComboBox) */}
         {/* Sử dụng List or ChevronDown để đại diện cho danh sách thả xuống */}
-        <ToolboxItem type="dropdown" label="Dropdown" icon="ListChecks" /> 
+        <ToolboxItem type="dropdown" label="Dropdown" icon="ListChecks" />
       </div>
     </div>
   );

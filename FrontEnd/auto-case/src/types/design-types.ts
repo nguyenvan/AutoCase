@@ -51,3 +51,11 @@ export type ComponentNode = {
   props: BaseProps ;
   children: ComponentNode[];
 };
+
+export type ComponentMacroNode = {
+  id: string;
+  microCaseId: string;
+  microName: string;
+  type: "macro"; // Chỉ định rõ là macro type
+  
+};

@@ -1,16 +1,26 @@
 import { icons } from "lucide-react";
 import type { FC } from "react";
 import { useDrag } from "react-dnd";
-interface ToolboxItemProps {
+
+interface MacroToolboxItemProps {
+  id: string;
+  name: string;
+  description: string;
   type: string;
-  label: string;
+
   icon: keyof typeof icons;
 }
 
-export const ToolboxItem: FC<ToolboxItemProps> = ({ type, label, icon }) => {
+export const MacroToolboxItem: FC<MacroToolboxItemProps> = ({ id, name, description, type, icon }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
+    id: id,
     type: "toolbox-item",
-    item: { type },
+    item: {
+      type: type, // Vẫn giữ type cho mục đích DND
+      microCaseId: id, // ID Micro Case thực tế
+      microName: name, // Tên Micro Case
+      description: description // Mô tả
+    },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -22,7 +32,8 @@ export const ToolboxItem: FC<ToolboxItemProps> = ({ type, label, icon }) => {
        ${isDragging ? "opacity-50" : "opacity-100"}`}
     >
       <Icon size={16} />
-      <span className="text-sm">{label}</span>
+      <span className="text-sm">{name}</span>
+
     </div>
   );
 };

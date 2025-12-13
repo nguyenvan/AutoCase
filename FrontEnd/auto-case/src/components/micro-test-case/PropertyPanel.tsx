@@ -145,7 +145,7 @@ const CONTROL_PROPERTIES: { [key: string]: PropertyConfig[] } = {
 // --- Component Chính: PropertyPanel ---
 
 const PropertyPanel: React.FC = () => {
-  
+
   const { selectedId, components, updateProps } = useDesignStore();
   console.log("PropertyPanel Rendered with selectedId:", selectedId);
   if (!selectedId) {

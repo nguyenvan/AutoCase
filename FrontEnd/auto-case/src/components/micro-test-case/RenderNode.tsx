@@ -4,12 +4,9 @@ import type { ComponentNode } from "../../types/design-types";
 import { Trash2 } from "lucide-react";
 // ❗ THÊM IMPORT DND HOOKS
 import { useDrag, useDrop } from "react-dnd";
+import { ItemTypes } from "@/utils/constants";
 
-// Định nghĩa loại item DND
-const ItemTypes = {
-  NODE: 'node',
-  TOOLBOX_ITEM: 'toolbox-item'
-};
+
 
 // Khai báo kiểu Props mới
 type Props = {
@@ -88,7 +85,7 @@ const RenderNode: React.FC<Props> = ({ node, onClick }) => {
       ${isOverCurrent ? "border-dashed border-2 border-red-500" : ""}`}
       style={isDisabled ? { opacity: 0.6, pointerEvents: 'none' } : {}}
     >
-     
+
       {/* Remove button */}
       <button
         className="absolute top-[-10px] right-[-10px] p-1 rounded-full bg-white border border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition duration-150 z-20 shadow-md"

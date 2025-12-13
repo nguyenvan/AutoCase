@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { BarChart3, FileText,  Users } from "lucide-react";
+import { BarChart3, FileText, Users } from "lucide-react";
 
 const Dashboard: React.FC = () => {
   return (
